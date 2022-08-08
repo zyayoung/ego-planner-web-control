@@ -1,0 +1,9 @@
+.idea
+.vscode
+.vagrant
+node_modules
+doc
+src-esm
+bundle.js
+flight_records/
+status

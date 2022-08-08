@@ -1,0 +1,28 @@
+{
+  "name": "web-control",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo src/main.js:bundle.js --live -- -t [ babelify ]",
+    "build": "browserify -t [ babelify ] src/main.js | uglifyjs -c -m -o bundle.js",
+    "test": "mocha --reporter list"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babelify": "^10.0.0",
+    "browserify": "^14.5.0",
+    "budo": "^10.0.4",
+    "uglify-js": "^3.3.4"
+  },
+  "dependencies": {
+    "lil-gui": "^0.17.0",
+    "roslib": "^1.3.0",
+    "stats.js": "^0.17.0",
+    "three": "^0.143.0"
+  }
+}

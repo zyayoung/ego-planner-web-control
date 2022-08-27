@@ -8,6 +8,7 @@ import GUI from 'lil-gui';
 
 const URL = `ws://${window.location.hostname}:9090`
 const info = document.getElementById('info');
+const drone_id = 1;
 
 info.innerText = `Connecting to ${URL}`;
 const ros = new ROSLIB.Ros({ url: URL });
@@ -111,11 +112,10 @@ function registerRviz() {
     // occupancy.receiveShadow = true;
     const occupancyListener = new ROSLIB.Topic({
         ros: ros,
-        name: '/drone_0_ego_planner_node/grid_map/occupancy',
-        // name: '/drone_0_ego_planner_node/grid_map/occupancy_inflate',
+        name: '/drone_'+drone_id+'_ego_planner_node/grid_map/occupancy',
         messageType: 'sensor_msgs/PointCloud2',
         compression: 'cbor',
-        throttle_rate: 250,
+        throttle_rate: 500,
         queue_size: 1,
     });
     occupancyListener.subscribe(function (message) {
@@ -144,7 +144,7 @@ function registerRviz() {
         ros: ros,
         name: '/vins_fusion/odometry',
         messageType: 'nav_msgs/Odometry',
-        throttle_rate: 100,
+        throttle_rate: 250,
         queue_size: 1,
     });
     odomListener.subscribe(function (message) {
@@ -172,7 +172,7 @@ function registerRviz() {
         ros: ros,
         name: '/position_cmd',
         messageType: 'quadrotor_msgs/PositionCommand',
-        throttle_rate: 100,
+        throttle_rate: 250,
         queue_size: 1,
     });
     posTargetListener.subscribe(function (message) {
@@ -184,9 +184,9 @@ function registerRviz() {
 
     const optimalTrajListener = new ROSLIB.Topic({
         ros: ros,
-        name: '/drone_0_ego_planner_node/optimal_list',
+        name: '/drone_'+drone_id+'_ego_planner_node/optimal_list',
         messageType: 'visualization_msgs/Marker',
-        throttle_rate: 100,
+        throttle_rate: 250,
         queue_size: 1,
     });
     const optimalTraj = new THREE.Object3D();
